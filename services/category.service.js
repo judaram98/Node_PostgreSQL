@@ -1,19 +1,15 @@
-// const boom = require('@hapi/boom');
-const pool = require('../libs/postgres.pool');
+const boom = require('@hapi/boom');
 
 class CategoryService {
-  constructor() {
-    this.pool = pool;
-    this.pool.on('error', (err) => console.error(err));
+
+  constructor(){
   }
   async create(data) {
     return data;
   }
 
   async find() {
-    const query = 'SELECT * FROM tasks';
-    const rta = await this.pool.query(query);
-    return rta.rows;
+    return [];
   }
 
   async findOne(id) {
@@ -30,6 +26,7 @@ class CategoryService {
   async delete(id) {
     return { id };
   }
+
 }
 
 module.exports = CategoryService;
