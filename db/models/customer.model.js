@@ -50,6 +50,7 @@ class Customer extends Model {
   // static permite que los metodos sean llamados sin necesidad de una instancia.
   static associate(models) {
     this.belongsTo(models.User, { as: 'user' });
+    this.hasMany(models.Order, { as: 'orders', foreignKey: 'customerId' });
   }
   static config(sequelize) {
     return {

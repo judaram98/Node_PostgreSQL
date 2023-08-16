@@ -1,21 +1,25 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const CATEGORY_TABLE = 'categories';
-const CategorySchema = {
+const { CUSTOMER_TABLE } = require('./customer.model');
+
+const ORDER_TABLE = 'orders';
+const OrderSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
-  name: {
+  customerId: {
+    field: 'customer_id',
     allowNull: false,
-    type: DataTypes.STRING,
-    unique: true,
-  },
-  image: {
-    allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
+    references: {
+      model: CUSTOMER_TABLE,
+      key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelet: 'SET NULL',
   },
   createdAt: {
     allowNull: false,
@@ -25,22 +29,21 @@ const CategorySchema = {
   },
 };
 
-class Category extends Model {
+class Order extends Model {
   // static permite que los metodos sean llamados sin necesidad de una instancia.
   static associate(models) {
-    this.hasMany(models.Product, {
-      as: 'products',
-      foreignKey: 'categoryId',
+    this.belongsTo(models.Customer, {
+      as: 'customer',
     });
   }
   static config(sequelize) {
     return {
       sequelize,
-      tableName: CATEGORY_TABLE,
-      modelName: 'Category',
+      tableName: ORDER_TABLE,
+      modelName: 'Order',
       timestamps: false,
     };
   }
 }
 
-module.exports = { CATEGORY_TABLE, CategorySchema, Category };
+module.exports = { ORDER_TABLE, OrderSchema, Order };
