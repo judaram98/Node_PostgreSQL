@@ -8,6 +8,7 @@ function setupModels(sequelize) {
   // Categorie.init(categorieSchema, Categorie.config(sequelize));
 
   //Relaciones
+  User.associate(sequelize.models);
   Customer.associate(sequelize.models);
 }
 
