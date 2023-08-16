@@ -49,7 +49,7 @@ const ProductSchema = {
 class Product extends Model {
   // static permite que los metodos sean llamados sin necesidad de una instancia.
   static associate(models) {
-    this.belongsTo(models.Category, { as: 'categories' });
+    this.belongsTo(models.Category, { as: 'category' });
   }
   static config(sequelize) {
     return {
